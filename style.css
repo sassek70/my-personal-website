@@ -1,3 +1,8 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
 body {
     background: blue;
 }
@@ -15,14 +20,31 @@ h1 {
     background-color: beige;
     border: solid;
     border-width: 10px;
-    margin: 0 auto;
+    margin: auto;
+    overflow: hidden;
 }
 
+
 #block {
-    height: 40px;
+    height: 400px;
     width: 80px;
+    background-color: aqua;
+    position: relative;
+    left: 800px;
+    animation: block 2s infinite;
+}
+
+#player {
+    height: 30px;
+    width: 40px;
     background-color: black;
     margin-top: 360px;
     margin-left: 360px;
     position: relative;
+    
+ 
+}
+    @keyframes block{
+    0%{left: 800px}
+    100%{left: -80px}
 }
