@@ -31,15 +31,23 @@ h1 {
     background-color: aqua;
     position: relative;
     left: 800px;
-    animation: block 2s infinite;
+    animation: block 3s infinite;
 }
+
+/* #hole {
+    height: 100px;
+    width: 80px;
+    background-color: white;
+    position: relative;
+    left: 800px;
+    top: -300px;
+    animation: block 2s infinite;
+} */
 
 #player {
     height: 30px;
     width: 40px;
     background-color: black;
-    margin-top: 360px;
-    margin-left: 360px;
     position: relative;
     
  
