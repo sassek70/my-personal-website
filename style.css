@@ -31,7 +31,7 @@ h1 {
     background-color: aqua;
     position: relative;
     left: 800px;
-    animation: block 3s infinite;
+    animation: block 5s infinite;
 }
 
 /* #hole {
@@ -49,10 +49,11 @@ h1 {
     width: 40px;
     background-color: black;
     position: relative;
-    
+    bottom: 300px;
+    left: 40px;
  
 }
     @keyframes block{
     0%{left: 800px}
-    100%{left: -80px}
+    100%{left: -400px}
 }
