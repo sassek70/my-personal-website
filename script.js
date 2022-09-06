@@ -111,10 +111,9 @@ function hitPlayer() {
              console.log("player bottom " + playerBottom);
 
             
-             if ((playerBottom <= blockTop) && (blockLeft <= 40) && (blockWidth + blockLeft >= playerWidth + 40)) {
-                block.style.left = blockLeft;
+             if ((playerBottom <= blockTop) && (blockLeft <= playerLeft) && (blockWidth >= playerWidth)) {
                 block.style.animation = "none";
-                alert('you lose')};
+                    alert('you lose')};
                 
                 
             },2)};
