@@ -2,6 +2,7 @@ const block = document.getElementById('block');
 const player = document.getElementById('player');
 const score = document.getElementById('score');
 let playerScore = 0;
+let restartPlayerScore = 0;
 score.textContent = playerScore + " points";
 
 function randomColor() {
@@ -14,22 +15,21 @@ function randomColor() {
 
 // Sets initial block to match animation values, otherwise first block will be one solid block for the 
 // entire play area height.
-block.addEventListener('animationstart',(e) => {
+const gameStart = block.addEventListener('animationstart',(e) => {
+    score.textContent = restartScore();
     const randomTop = parseInt((Math.random()*300)+75);
     const randomWide = parseInt(Math.random()*100)+40;
-    let playerScoreNew = playerScore++;
-
+    block.style.animationDelay = "2s";
+    
     if (randomTop >= 345) {
         randomTop = 345;
     }
     
-    score.textContent = playerScoreNew + " points";
     block.style.backgroundColor = randomColor();
     block.style.top = randomTop + "px";
     block.style.width = randomWide + "px";
     block.textContent = randomTop + "px";
     block.style.fontSize = "20px";
-
     hitPlayer();
     blockSlider;
 });
@@ -38,22 +38,22 @@ block.addEventListener('animationstart',(e) => {
 const blockSlider = block.addEventListener('animationiteration', () => {
     
     //Variables to set random value of 0-1, multiply by 300 set to 0-300. Add 75 to set a maximum
-    //height of 75px from top of play area
+    //height of 75px from top of play area. Also set random width of each block.
     let randomTop = parseInt((Math.random()*300)+75);
-    let randomWide = parseInt(Math.random()*100)+40; //same method for height, but sets block width
-
+    let randomWide = parseInt((Math.random()*100)+70);
+    
     //sets limit for block size, to 345px. Block will always be larger than player. 
     if (randomTop >= 345) {
         randomTop = 345;
     }
     
-    score.textContent = playerScore++ + " points";
     block.style.backgroundColor = randomColor();
     block.style.top = randomTop + "px";
     block.style.width = randomWide + "px";
     block.textContent = randomTop + "px";
     block.style.fontSize = "20px";
     hitPlayer();
+    score.textContent = updateScore();
 });
 
 
@@ -83,39 +83,45 @@ document.addEventListener("keydown", function (e){
     }
 })
 
+//Resets player score to 0 after game over.
+function restartScore () {
+    gameStart;
+    return restartPlayerScore + " points";
+}
 
 function updateScore() {
-    block.addEventListener('animationstart'), () => {
-    let playerScoreNew = playerScore++;
-    score.textContent = playerScoreNew + " points";
-};
     blockSlider;
+    restartPlayerScore++;
+    return restartPlayerScore + " points";
 };
 
+
+//Collision detection based on object edge locations
 function hitPlayer() {
         setInterval(function() {
              const blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
-             const blockRight = parseInt(window.getComputedStyle(block).getPropertyValue("right"))
-             const blockTop = parseInt(window.getComputedStyle(block).getPropertyValue("top"))
-             const playerBottom = parseInt(window.getComputedStyle(player).getPropertyValue("bottom"))
-             const playerRight = parseInt(window.getComputedStyle(player).getPropertyValue("right"))
-             const playerLeft = parseInt(window.getComputedStyle(player).getPropertyValue("left"))
-             const blockWidth = parseInt(window.getComputedStyle(player).getPropertyValue("width"))
-             const playerWidth = parseInt(window.getComputedStyle(player).getPropertyValue("width"))
+             const blockRight = parseInt(window.getComputedStyle(block).getPropertyValue("right"));
+             const blockTop = parseInt(window.getComputedStyle(block).getPropertyValue("top"));
+             const blockBottom = parseInt(window.getComputedStyle(block).getPropertyValue("bottom"));
+             const blockWidth = parseInt(window.getComputedStyle(player).getPropertyValue("width"));
+             const playerLeft = parseInt(window.getComputedStyle(player).getPropertyValue("left"));
+             const playerRight = parseInt(window.getComputedStyle(player).getPropertyValue("right"));
+             const playerTop = parseInt(window.getComputedStyle(player).getPropertyValue("top"));
+             const playerBottom = parseInt(window.getComputedStyle(player).getPropertyValue("bottom"));
+             const playerWidth = parseInt(window.getComputedStyle(player).getPropertyValue("width"));
 
-             console.log("block left " + blockLeft)
-             console.log("player right " + playerRight)
-             console.log("block right " + blockRight)
-             console.log("player left " + playerLeft);
-             console.log("block top " + blockTop);
-             console.log("player bottom " + playerBottom);
+            //  console.log("block left " + blockLeft + "; " + "block right " + blockRight + "; "  + "block bottom " + blockBottom + "; " + "block top " + blockTop + "; " + "block width " + blockWidth);
+       
+            //  console.log("player left " + playerLeft + "; " + "player right " + playerRight + "; " + "player bottom " + playerBottom + "; " + "player top " + playerTop + "; " + "player width " + playerWidth);
 
-            
-             if ((playerBottom <= blockTop) && (blockLeft <= playerLeft) && (blockWidth >= playerWidth)) {
+        
+             if ((playerBottom <= (blockBottom + 400)) && (blockLeft <= playerLeft) && (blockRight <= 720)) {
                 block.style.animation = "none";
-                    alert('you lose')};
-                
-                
+                    alert('you lose');
+                    restartPlayerScore = 0;
+                    gameStart;
+                    block.style.animation = "block 5s infinite linear"
+                };                
             },2)};
-            
+                        
            
