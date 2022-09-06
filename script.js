@@ -1,7 +1,8 @@
 const block = document.getElementById('block');
 const player = document.getElementById('player');
-
-// const hole = document.getElementById('hole');
+const score = document.getElementById('score');
+let playerScore = 0;
+score.textContent = playerScore + " points";
 
 function randomColor() {
     const red = Math.floor(Math.random() * 256);
@@ -14,20 +15,22 @@ function randomColor() {
 // Sets initial block to match animation values, otherwise first block will be one solid block for the 
 // entire play area height.
 block.addEventListener('animationstart',(e) => {
-    let randomTop = parseInt((Math.random()*300)+75);
+    const randomTop = parseInt((Math.random()*300)+75);
     const randomWide = parseInt(Math.random()*100)+40;
-    
+    let playerScoreNew = playerScore++;
+
     if (randomTop >= 345) {
         randomTop = 345;
     }
     
+    score.textContent = playerScoreNew + " points";
     block.style.backgroundColor = randomColor();
     block.style.top = randomTop + "px";
     block.style.width = randomWide + "px";
     block.textContent = randomTop + "px";
     block.style.fontSize = "20px";
-    console.log("initial top " + randomTop)
-    // collision();
+
+    hitPlayer();
     blockSlider;
 });
 
@@ -38,25 +41,19 @@ const blockSlider = block.addEventListener('animationiteration', () => {
     //height of 75px from top of play area
     let randomTop = parseInt((Math.random()*300)+75);
     let randomWide = parseInt(Math.random()*100)+40; //same method for height, but sets block width
-    // setInterval(function(){
-    //     const blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
-    //     block.style.left = (blockLeft - 50) + "px";
-    // },15);
-    
-    
+
     //sets limit for block size, to 345px. Block will always be larger than player. 
     if (randomTop >= 345) {
         randomTop = 345;
     }
     
+    score.textContent = playerScore++ + " points";
     block.style.backgroundColor = randomColor();
     block.style.top = randomTop + "px";
     block.style.width = randomWide + "px";
     block.textContent = randomTop + "px";
     block.style.fontSize = "20px";
-    // collision();
-    console.log("random top: " + randomTop)
-    console.log("block left: " + block.style.left)
+    hitPlayer();
 });
 
 
@@ -73,8 +70,11 @@ const blockSlider = block.addEventListener('animationiteration', () => {
 function playerJump(){
         const jump = player.style.bottom.replace('px','')
         const playerJump = parseInt(jump, 10)
-        player.style.bottom = `${playerJump + 50}px`;
-}
+        player.style.bottom = `${playerJump + 75}px`;
+        if (playerJump >= 300) {
+            player.style.bottom = 370 + "px"}
+        }
+
 
 document.addEventListener("keydown", function (e){
     if (e.key === "ArrowUp") {
@@ -84,16 +84,39 @@ document.addEventListener("keydown", function (e){
 })
 
 
-// for (let score = 0; block.addEventListener('animationiteration', ()=> {});
+function updateScore() {
+    block.addEventListener('animationstart'), () => {
+    let playerScoreNew = playerScore++;
+    score.textContent = playerScoreNew + " points";
+};
+    blockSlider;
+};
 
+function hitPlayer() {
+        setInterval(function() {
+             const blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
+             const blockRight = parseInt(window.getComputedStyle(block).getPropertyValue("right"))
+             const blockTop = parseInt(window.getComputedStyle(block).getPropertyValue("top"))
+             const playerBottom = parseInt(window.getComputedStyle(player).getPropertyValue("bottom"))
+             const playerRight = parseInt(window.getComputedStyle(player).getPropertyValue("right"))
+             const playerLeft = parseInt(window.getComputedStyle(player).getPropertyValue("left"))
+             const blockWidth = parseInt(window.getComputedStyle(player).getPropertyValue("width"))
+             const playerWidth = parseInt(window.getComputedStyle(player).getPropertyValue("width"))
 
-// function collision(){
-//     if (
-//         block.style.left <= 40
-//         // player.style.bottom <= block.style.top
-//         ){
-//         // player.y + player.height >= block.y ||
-//         // player.y <= block.y + block.height) 
-//         alert("you lose")
-//     };
-// };
+             console.log("block left " + blockLeft)
+             console.log("player right " + playerRight)
+             console.log("block right " + blockRight)
+             console.log("player left " + playerLeft);
+             console.log("block top " + blockTop);
+             console.log("player bottom " + playerBottom);
+
+            
+             if ((playerBottom <= blockTop) && (blockLeft <= 40) && (blockWidth + blockLeft >= playerWidth + 40)) {
+                block.style.left = blockLeft;
+                block.style.animation = "none";
+                alert('you lose')};
+                
+                
+            },2)};
+            
+           
