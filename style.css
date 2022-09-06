@@ -14,12 +14,20 @@ h1 {
     text-align: center;
 }
 
+#block-runner {
+    height:450px;
+    width: 850px;
+    padding: 60px;
+
+}
+
 #block-game {
     height: 400px;
     width: 800px;
     background-color: beige;
     border: solid;
     border-width: 10px;
+    position: relative;
     margin: auto;
     overflow: hidden;
 }
@@ -28,11 +36,22 @@ h1 {
 #block {
     height: 400px;
     width: 80px;
-    background-color: aqua;
-    position: relative;
     left: 800px;
-    animation: block 5s infinite;
+    border: 1px solid black;
+    background-color: aqua;
+    position: absolute;
+    animation: block 3s infinite linear;
 }
+
+#score {
+    height: 50px;
+    width: 100px;
+    border: 1px solid black;
+    position: relative;
+    margin: auto;
+    background-color: white;
+}
+
 
 /* #hole {
     height: 100px;
@@ -48,12 +67,12 @@ h1 {
     height: 30px;
     width: 40px;
     background-color: black;
-    position: relative;
+    position: absolute;
     bottom: 300px;
     left: 40px;
  
 }
-    @keyframes block{
+@keyframes block{
     0%{left: 800px}
     100%{left: -400px}
 }
