@@ -21,12 +21,12 @@ function randomColor() {
 const gameStart = block.addEventListener('animationstart',(e) => {
     restartPlayerScore = 0;
     score.textContent = restartScore();
-    const randomTop = parseInt((Math.random()*300)+75);
-    const randomWide = parseInt((Math.random()*100)+40);
+    let randomTop = parseInt((Math.random()*300)+75);
+    let randomWide = parseInt((Math.random()*100)+40);
     block.style.animationDelay = "2s";
     
     if (randomTop >= 345) {
-        randomTop = 345;
+       randomTop = 345;
     }
     
     block.style.backgroundColor = randomColor();
@@ -102,7 +102,8 @@ function updateScore() {
 function updateHighScore () {
     if (newHighScore <= restartPlayerScore) {
         newHighScore = restartPlayerScore;
-        return newHighScore}};
+    };
+        return newHighScore};
 
 
 //Collision detection based on object edge locations
@@ -110,14 +111,14 @@ function hitPlayer() {
         setInterval(function() {
              const blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
              const blockRight = parseInt(window.getComputedStyle(block).getPropertyValue("right"));
-             const blockTop = parseInt(window.getComputedStyle(block).getPropertyValue("top"));
+            //  const blockTop = parseInt(window.getComputedStyle(block).getPropertyValue("top"));
              const blockBottom = parseInt(window.getComputedStyle(block).getPropertyValue("bottom"));
-             const blockWidth = parseInt(window.getComputedStyle(player).getPropertyValue("width"));
+            //  const blockWidth = parseInt(window.getComputedStyle(player).getPropertyValue("width"));
              const playerLeft = parseInt(window.getComputedStyle(player).getPropertyValue("left"));
-             const playerRight = parseInt(window.getComputedStyle(player).getPropertyValue("right"));
-             const playerTop = parseInt(window.getComputedStyle(player).getPropertyValue("top"));
+            //  const playerRight = parseInt(window.getComputedStyle(player).getPropertyValue("right"));
+            //  const playerTop = parseInt(window.getComputedStyle(player).getPropertyValue("top"));
              const playerBottom = parseInt(window.getComputedStyle(player).getPropertyValue("bottom"));
-             const playerWidth = parseInt(window.getComputedStyle(player).getPropertyValue("width"));
+            //  const playerWidth = parseInt(window.getComputedStyle(player).getPropertyValue("width"));
 
             //  console.log("block left " + blockLeft + "; " + "block right " + blockRight + "; "  + "block bottom " + blockBottom + "; " + "block top " + blockTop + "; " + "block width " + blockWidth);
        
@@ -128,7 +129,6 @@ function hitPlayer() {
                 block.style.animation = "none";
                     updateHighScore();
                     alert('you lose');
-                    // restartPlayerScore = 0;
                     gameStart;
                     block.style.animation = "block 5s infinite linear"
                 };                
