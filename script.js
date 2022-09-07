@@ -1,9 +1,12 @@
 const block = document.getElementById('block');
 const player = document.getElementById('player');
 const score = document.getElementById('score');
+const highScore = document.getElementById('highScore')
 let playerScore = 0;
 let restartPlayerScore = 0;
-score.textContent = playerScore + " points";
+let newHighScore = 0;
+score.textContent = "Current Score: " + playerScore;
+highScore.textContent = "High Score: " + newHighScore ;
 
 function randomColor() {
     const red = Math.floor(Math.random() * 256);
@@ -16,9 +19,10 @@ function randomColor() {
 // Sets initial block to match animation values, otherwise first block will be one solid block for the 
 // entire play area height.
 const gameStart = block.addEventListener('animationstart',(e) => {
+    restartPlayerScore = 0;
     score.textContent = restartScore();
     const randomTop = parseInt((Math.random()*300)+75);
-    const randomWide = parseInt(Math.random()*100)+40;
+    const randomWide = parseInt((Math.random()*100)+40);
     block.style.animationDelay = "2s";
     
     if (randomTop >= 345) {
@@ -54,6 +58,7 @@ const blockSlider = block.addEventListener('animationiteration', () => {
     block.style.fontSize = "20px";
     hitPlayer();
     score.textContent = updateScore();
+    highScore.textContent = "High Score: " + updateHighScore();
 });
 
 
@@ -86,14 +91,18 @@ document.addEventListener("keydown", function (e){
 //Resets player score to 0 after game over.
 function restartScore () {
     gameStart;
-    return restartPlayerScore + " points";
+    return "Current Score: " + restartPlayerScore;
 }
 
 function updateScore() {
     blockSlider;
     restartPlayerScore++;
-    return restartPlayerScore + " points";
-};
+    return "Current Score: " + restartPlayerScore};
+
+function updateHighScore () {
+    if (newHighScore <= restartPlayerScore) {
+        newHighScore = restartPlayerScore;
+        return newHighScore}};
 
 
 //Collision detection based on object edge locations
@@ -117,11 +126,10 @@ function hitPlayer() {
         
              if ((playerBottom <= (blockBottom + 400)) && (blockLeft <= playerLeft) && (blockRight <= 720)) {
                 block.style.animation = "none";
+                    updateHighScore();
                     alert('you lose');
-                    restartPlayerScore = 0;
+                    // restartPlayerScore = 0;
                     gameStart;
                     block.style.animation = "block 5s infinite linear"
                 };                
             },2)};
-                        
-           
