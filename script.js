@@ -125,7 +125,7 @@ function hitPlayer() {
             //  console.log("player left " + playerLeft + "; " + "player right " + playerRight + "; " + "player bottom " + playerBottom + "; " + "player top " + playerTop + "; " + "player width " + playerWidth);
 
         
-             if ((playerBottom <= (blockBottom + 400)) && (blockLeft <= playerLeft) && (blockRight <= 720)) {
+             if ((playerBottom <= (blockBottom + 400)) && (((blockLeft <= playerLeft + 40) && (blockRight <= 720)) || ((blockLeft <= playerLeft + 40) && (blockRight >= 720) && (blockRight <= 760)))) {
                 block.style.animation = "none";
                     updateHighScore();
                     alert('you lose');
