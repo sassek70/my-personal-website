@@ -8,6 +8,13 @@ let newHighScore = 0;
 score.textContent = "Current Score: " + playerScore;
 highScore.textContent = "High Score: " + newHighScore ;
 
+block.style.animation = "block";
+block.style.animationDuration = "5s";
+block.style.animationTimingFunction = "linear";
+block.style.animationIterationCount = "infinite";
+
+
+
 function randomColor() {
     const red = Math.floor(Math.random() * 256);
     const green = Math.floor(Math.random() * 256);
@@ -24,6 +31,7 @@ const gameStart = block.addEventListener('animationstart',(e) => {
     let randomTop = parseInt((Math.random()*300)+75);
     let randomWide = parseInt((Math.random()*100)+40);
     block.style.animationDelay = "2s";
+    // block.style.animationDuration = "5s";
     
     if (randomTop >= 345) {
        randomTop = 345;
@@ -59,6 +67,7 @@ const blockSlider = block.addEventListener('animationiteration', () => {
     hitPlayer();
     score.textContent = updateScore();
     highScore.textContent = "High Score: " + updateHighScore();
+    // block.style.animation = updateSpeed();
 });
 
 
@@ -88,6 +97,10 @@ document.addEventListener("keydown", function (e){
     }
 })
 
+document.addEventListener("click", function () {
+    playerJump();
+})
+
 //Resets player score to 0 after game over.
 function restartScore () {
     gameStart;
@@ -95,7 +108,7 @@ function restartScore () {
 }
 
 function updateScore() {
-    blockSlider;
+    // blockSlider;
     restartPlayerScore++;
     return "Current Score: " + restartPlayerScore};
 
@@ -104,6 +117,21 @@ function updateHighScore () {
         newHighScore = restartPlayerScore;
     };
         return newHighScore};
+
+
+// function updateSpeed() {
+//     let currentSpeed = restartPlayerScore / 5;
+//     let checkSpeed = restartPlayerScore%5;
+//     if (checkSpeed == 5) {
+//         let newSpeed;
+//         let changeSpeed = ((parseFloat(block.style.animationDuration) - 0.2) + 's');
+//         newSpeed = changeSpeed;
+//         console.log("current: " + restartPlayerScore + " check: " + checkSpeed + " change: " + changeSpeed);
+//         return newSpeed;
+//     };
+//     blockSlider;
+// };
+
 
 
 //Collision detection based on object edge locations
