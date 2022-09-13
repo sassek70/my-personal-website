@@ -12,6 +12,7 @@ block.style.animation = "block";
 block.style.animationDuration = "5s";
 block.style.animationTimingFunction = "linear";
 block.style.animationIterationCount = "infinite";
+block.style.animationFillMode = "forwards";
 
 
 
@@ -32,8 +33,7 @@ const gameStart = block.addEventListener('animationstart',(e) => {
     let randomWide = parseInt((Math.random()*100)+40);
     block.style.animationDelay = "2s";
     // block.style.animationDuration = "5s";
-    
-    if (randomTop >= 345) {
+        if (randomTop >= 345) {
        randomTop = 345;
     }
     
@@ -67,7 +67,7 @@ const blockSlider = block.addEventListener('animationiteration', () => {
     hitPlayer();
     score.textContent = updateScore();
     highScore.textContent = "High Score: " + updateHighScore();
-    // block.style.animation = updateSpeed();
+    block.style.animationDuration = updateSpeed();
 });
 
 
@@ -119,18 +119,17 @@ function updateHighScore () {
         return newHighScore};
 
 
-// function updateSpeed() {
-//     let currentSpeed = restartPlayerScore / 5;
-//     let checkSpeed = restartPlayerScore%5;
-//     if (checkSpeed == 5) {
-//         let newSpeed;
-//         let changeSpeed = ((parseFloat(block.style.animationDuration) - 0.2) + 's');
-//         newSpeed = changeSpeed;
-//         console.log("current: " + restartPlayerScore + " check: " + checkSpeed + " change: " + changeSpeed);
-//         return newSpeed;
-//     };
-//     blockSlider;
-// };
+ function updateSpeed() {
+     let currentSpeed = parseFloat(window.getComputedStyle(block).getPropertyValue("animation-duration"));
+     let checkSpeed = restartPlayerScore%5;
+     // console.log("current: " + restartPlayerScore + " check: " + checkSpeed);
+     if ((checkSpeed == 0) && (currentSpeed > 1))  {
+         let newSpeed = ((currentSpeed - 0.2) + 's');
+         console.log("current: " + restartPlayerScore + " check: " + checkSpeed + " change: " + newSpeed)
+         return newSpeed};
+     console.log("current: " + restartPlayerScore + " check: " + checkSpeed)
+     blockSlider;
+ };
 
 
 
