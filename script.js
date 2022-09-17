@@ -99,7 +99,7 @@ function playerJump(){
         }
 
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keyup", (e) => {
     if (e.key === "ArrowUp") {
         playerJump()    
         
