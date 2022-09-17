@@ -5,30 +5,31 @@
         <title>My Personal Website</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
         <section id="about-me">
             <h2>About Me</h2>
             <p id="bio">Hi, my name is Kevin Sasse. I graduated from Rowan University with a BA in Radio/TV/Film. For the last 8 years,
                 I've worked in the telecommunications industry helping to design fiber networks to expand Verizon's Fios coverage.
-                I am currently pursuing a career change into software engineering with a focus game development.                 </p>
+                I am currently pursuing a career change into software engineering with a focus game development.     
+                Please enjoy this simple game!</p>
         </section>
         
 
         <section id="block-runner">
         <h2>Block Jumper</h2>
                 <div id="block-game">
+                    <button onclick="toggleButton()" class="button">Start</button>
                 <div id="block" class="block"></div>
                 <div id="player"></div>
-                <div id="instructions">
-                    <h2>Instructions:</h2>
-                    <p>Use the "Up" arrow key to make the player block jump.</p>
-                    <p>The score is equal to how many blocks you have jumped over.</p>
-                    <P>The game will automatically restart after you clear the game over alert.</P>
-                </div>
             </div>
             <div id="score"></div>
             <div id="highScore"></div>
-        <script src="script.js"></script>
-            </section> 
+            <script src="script.js"></script>
+        </section> 
+        <div id="instructions">
+            <h2>Instructions:</h2>
+            <p id="toPlay">Use the "Up" arrow key to make the player block jump.<br>
+            The score is equal to how many blocks you have jumped over.<br>
+            The game will automatically restart after you clear the game over alert.</P>
+        </div>
     </body>
 </html>

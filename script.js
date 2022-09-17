@@ -1,18 +1,29 @@
 const block = document.getElementById('block');
 const player = document.getElementById('player');
 const score = document.getElementById('score');
-const highScore = document.getElementById('highScore')
+const highScore = document.getElementById('highScore');
+const button = document.getElementsByClassName('button')[0];
 let playerScore = 0;
 let restartPlayerScore = 0;
 let newHighScore = 0;
 score.textContent = "Current Score: " + playerScore;
 highScore.textContent = "High Score: " + newHighScore ;
 
+function toggleButton(){
+      button.classList.remove('active');
+      button.classList.add('hidden');
+      button
+      startGame();
+    };
+
+
+function startGame(){
+
+
 block.style.animation = "block";
 block.style.animationDuration = "5s";
 block.style.animationTimingFunction = "linear";
 block.style.animationIterationCount = "infinite";
-block.style.animationFillMode = "forwards";
 
 
 
@@ -36,12 +47,12 @@ const gameStart = block.addEventListener('animationstart',(e) => {
         if (randomTop >= 345) {
        randomTop = 345;
     }
-    
+    block.style.border= "1px solid black";
     block.style.backgroundColor = randomColor();
     block.style.top = randomTop + "px";
     block.style.width = randomWide + "px";
-    block.textContent = randomTop + "px";
-    block.style.fontSize = "20px";
+    // block.textContent = randomTop + "px";
+    // block.style.fontSize = "20px";
     hitPlayer();
     blockSlider;
 });
@@ -62,8 +73,6 @@ const blockSlider = block.addEventListener('animationiteration', () => {
     block.style.backgroundColor = randomColor();
     block.style.top = randomTop + "px";
     block.style.width = randomWide + "px";
-    block.textContent = randomTop + "px";
-    block.style.fontSize = "20px";
     hitPlayer();
     score.textContent = updateScore();
     highScore.textContent = "High Score: " + updateHighScore();
@@ -90,14 +99,14 @@ function playerJump(){
         }
 
 
-document.addEventListener("keydown", function (e){
+document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowUp") {
         playerJump()    
         
     }
 })
 
-document.addEventListener("click", function () {
+document.getElementById('block-game').addEventListener("click", (e) => {
     playerJump();
 })
 
@@ -160,3 +169,4 @@ function hitPlayer() {
                     block.style.animation = "block 5s infinite linear"
                 };                
             },2)};
+        };
