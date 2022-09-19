@@ -1,8 +1,8 @@
-const block = document.getElementById('block');
 const player = document.getElementById('player');
 const score = document.getElementById('score');
 const highScore = document.getElementById('highScore');
 const button = document.getElementsByClassName('button')[0];
+const blockGame = document.getElementById('block-game');
 let playerScore = 0;
 let restartPlayerScore = 0;
 let newHighScore = 0;
@@ -10,16 +10,23 @@ score.textContent = "Current Score: " + playerScore;
 highScore.textContent = "High Score: " + newHighScore ;
 
 function toggleButton(){
-      button.classList.remove('active');
-      button.classList.add('hidden');
-      button
-      startGame();
-    };
+    button.classList.remove('active');
+    button.classList.add('hidden');
+    startGame();
+};
+
+function createBlock() {
+    const block = document.createElement('div');
+    block.classList.add('block');
+    block.id = 'block'
+    blockGame.append(block);
+
+}
 
 
 function startGame(){
-
-
+createBlock();
+const block = document.getElementById('block')
 block.style.animation = "block";
 block.style.animationDuration = "5s";
 block.style.animationTimingFunction = "linear";
