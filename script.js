@@ -10,6 +10,7 @@ score.textContent = "Current Score: " + playerScore;
 highScore.textContent = "High Score: " + newHighScore ;
 
 function toggleButton(){
+<<<<<<< Updated upstream
       button.classList.remove('active');
       button.classList.add('hidden');
       button
@@ -25,7 +26,36 @@ block.style.animationDuration = "5s";
 block.style.animationTimingFunction = "linear";
 block.style.animationIterationCount = "infinite";
 
+=======
+        button.classList.remove("active");
+        button.classList.add("hidden");
 
+        startGame();
+};
+
+function startGame(){
+    animationStart();
+    animationCycle();
+    
+
+function createBlock() {
+    const block = document.createElement('div');
+    block.classList.add('block');
+    block.id = 'block'
+    blockGame.append(block);
+    blockProperties();
+};
+
+function removeBlock() {
+    const blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
+    const blockWidth = parseInt(window.getComputedStyle(block).getPropertyValue("width"));
+    const payerLeft = parseInt(window.getComputedStyle(player).getPropertyValue("left"));
+>>>>>>> Stashed changes
+
+    if(blockLeft + blockWidth < 0) {
+        block.remove();
+    };
+};
 
 function randomColor() {
     const red = Math.floor(Math.random() * 256);
@@ -35,49 +65,57 @@ function randomColor() {
     return newColor;
 }
 
-// Sets initial block to match animation values, otherwise first block will be one solid block for the 
-// entire play area height.
-const gameStart = block.addEventListener('animationstart',(e) => {
-    restartPlayerScore = 0;
-    score.textContent = restartScore();
-    let randomTop = parseInt((Math.random()*300)+75);
-    let randomWide = parseInt((Math.random()*100)+40);
-    block.style.animationDelay = "2s";
-    // block.style.animationDuration = "5s";
-        if (randomTop >= 345) {
-       randomTop = 345;
-    }
-    block.style.border= "1px solid black";
-    block.style.backgroundColor = randomColor();
-    block.style.top = randomTop + "px";
-    block.style.width = randomWide + "px";
-    // block.textContent = randomTop + "px";
-    // block.style.fontSize = "20px";
-    hitPlayer();
-    blockSlider;
-});
+function blockProperties () {
+const block = document.getElementById('block')
 
-// Repeats the steps to create random height and width blocks with random colors 
-const blockSlider = block.addEventListener('animationiteration', () => {
-    
-    //Variables to set random value of 0-1, multiply by 300 set to 0-300. Add 75 to set a maximum
-    //height of 75px from top of play area. Also set random width of each block.
-    let randomTop = parseInt((Math.random()*300)+75);
-    let randomWide = parseInt((Math.random()*100)+70);
-    
-    //sets limit for block size, to 345px. Block will always be larger than player. 
-    if (randomTop >= 345) {
-        randomTop = 345;
-    }
-    
-    block.style.backgroundColor = randomColor();
-    block.style.top = randomTop + "px";
-    block.style.width = randomWide + "px";
-    hitPlayer();
-    score.textContent = updateScore();
-    highScore.textContent = "High Score: " + updateHighScore();
-    block.style.animationDuration = updateSpeed();
-});
+//Variables to set random value of 0-1, multiply by 300 set to 0-300. Add 75 to set a maximum
+//height of 75px from top of play area. Also set random width of each block.
+let randomTop = parseInt((Math.random()*300)+75);
+let randomWide = parseInt((Math.random()*100)+40);
+//sets limit for block size, to 345px. Block will always be larger than player. 
+if (randomTop >= 345) {
+    randomTop = 345;
+};
+block.style.animation = "block";
+block.style.animationDuration = "5s";
+block.style.animationDelay = "2s";
+block.style.animationTimingFunction = "linear";
+block.style.animationIterationCount = "infinite";
+block.style.border= "1px solid black";
+block.style.backgroundColor = randomColor();
+block.style.top = randomTop + "px";
+block.style.width = randomWide + "px";
+};
+
+function animationStart(){
+    createBlock();
+    blockProperties();
+    block.addEventListener('animationstart',(e) => {
+        restartPlayerScore = 0;
+        score.textContent = restartScore();
+        block.style.animationDelay = "2s";
+    });
+    if (hitPlayer()){
+        return
+    };
+    removeBlock();
+};
+
+function animationCycle(){
+    // Repeats the steps to create random height and width blocks with random colors 
+    createBlock();
+   block.addEventListener('animationiteration', () => {
+        blockProperties();
+        updateSpeed()
+        // block.style.animationDelay = "0s";
+        score.textContent = updateScore();
+        highScore.textContent = "High Score: " + updateHighScore();
+        if (hitPlayer()) {
+            return
+        }
+        removeBlock();
+    });
+};
 
 
 //function to simulate gravity. Calculates player bottom position in play area and removes 3px every 
@@ -112,7 +150,7 @@ document.getElementById('block-game').addEventListener("click", (e) => {
 
 //Resets player score to 0 after game over.
 function restartScore () {
-    gameStart;
+    // gameStart;
     return "Current Score: " + restartPlayerScore;
 }
 
@@ -137,7 +175,7 @@ function updateHighScore () {
          console.log("current: " + restartPlayerScore + " check: " + checkSpeed + " change: " + newSpeed)
          return newSpeed};
      console.log("current: " + restartPlayerScore + " check: " + checkSpeed)
-     blockSlider;
+    //  blockSlider;
  };
 
 
@@ -162,11 +200,21 @@ function hitPlayer() {
 
         
              if ((playerBottom <= (blockBottom + 400)) && (((blockLeft <= playerLeft + 40) && (blockRight <= 720)) || ((blockLeft <= playerLeft + 40) && (blockRight >= 720) && (blockRight <= 760)))) {
-                block.style.animation = "none";
-                    updateHighScore();
-                    alert('you lose');
-                    gameStart;
-                    block.style.animation = "block 5s infinite linear"
-                };                
+                    gameOver();
+                
+                };             
             },2)};
+        
+        function gameOver(){
+            block.style.animation = "none";
+            updateHighScore();
+            alert('you lose');
+            removeBlock();
+            button.classList.remove('hidden');
+            button.classList.add('active');
+            button.textContent = "Restart";
+            blockGame.removeChild(block);
+
+        }
+        
         };

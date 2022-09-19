@@ -79,7 +79,7 @@ h2 {
     width: 80px;
     left: 800px;
     position: absolute;
-    animation-name: block;
+    /* animation-name: block; */
     /* animation-delay: 0s;
     animation-duration: 5s;
     animation-iteration-count: infinite;
